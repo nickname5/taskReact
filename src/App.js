@@ -13,89 +13,48 @@ class App extends Component {
       login: 'designer@gmail.com',
       password: '1234567890',
       eMailError: false,
-      succes: false
+      success: false
     };
 
-    this.onLoginChange = this.onLoginChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.setLogin = this.setLogin.bind(this);
+    this.checkLogin = this.checkLogin.bind(this);
+    this.setPassword = this.setPassword.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onLoginBlur = this.onLoginBlur.bind(this);
-    this.error = this.error.bind(this);
-    this.success = this.success.bind(this);
-    this.inputPass = this.inputPass.bind(this);
-    this.onPassBlur = this.onPassBlur.bind(this);
+    this.checkPassword = this.checkPassword.bind(this);
   }
 
   onSubmit(event) {
-    if (!this.state.succes) {
+    if (!this.state.success) {
       event.preventDefault();
-    } else {
-      console.log('success');
     }
   }
 
-  onPasswordChange(event) {
-    this.setState({userPassword: event.target.value});
+  setPassword(pass) {
+    this.setState({userPassword: pass});
   }
 
-  onLoginChange(event) {
-    this.setState({userLogin: event.target.value});
+  setLogin(login) {
+    this.setState({userLogin: login});
   }
 
-  onLoginBlur(event) {
+  checkLogin(login) {
     const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     if (reg.test(this.state.userLogin) == false) {
       this.setState({eMailError: true});
+      this.setState({success: false});
     } else {
       this.setState({eMailError: false});
-      this.setState({userLogin: event.target.value});
+      this.setState({userLogin: login});
     }
+    this.checkPassword();
   }
 
-  onPassBlur(event) {
+  checkPassword() {
     if (this.state.userLogin === this.state.login &&
       this.state.userPassword === this.state.password) {
-      this.setState({succes: true});
+      this.setState({success: true});
     } else {
-      this.setState({succes: false});
-    }
-  }
-
-  error() {
-    if (this.state.eMailError) {
-      return (
-        <div>
-          <span className="error">Invalid Username</span>
-          <div className="error-icon icon"></div>
-        </div>
-      )
-    }
-  }
-
-  success() {
-    if (this.state.succes) {
-      return ( <div className="success-icon icon"></div> )
-    }
-  }
-
-  inputPass() {
-    if (this.state.succes) {
-      return (
-        <div className="input__comp_pass">
-          <input className="input input_pass input_success" type="password"
-          name="password" placeholder="Password" value={this.state.userPassword}
-          onChange={this.onPasswordChange} onBlur={this.onPassBlur} />
-          <div className="success-icon icon"></div>
-        </div>
-      )
-    } else {
-      return (
-        <div className="input__comp_pass">
-          <input className="input input_pass" type="password"
-          name="password" placeholder="Password" value={this.state.userPassword}
-          onChange={this.onPasswordChange} onBlur={this.onPassBlur} />
-        </div>
-      )
+      this.setState({success: false});
     }
   }
 
@@ -106,14 +65,10 @@ class App extends Component {
           <strong className="strong">Bank </strong>Support Portal
         </h1>
         <form className="form" noValidate="novalidate" onSubmit={this.onSubmit}>
-          <div className="input__comp_user">
-            <input className="input input_mail" type="email" name="login"
-            placeholder="E-mail" value={this.state.userLogin}
-            onChange={this.onLoginChange} onBlur={this.onLoginBlur} />
-            {this.error()}
-            {this.success()}
-          </div>
-          {this.inputPass()}
+          <InputUser value={this.state.userLogin} change={this.setLogin}
+          blur={this.checkLogin} error={this.state.eMailError} success={this.state.success}/>
+          <InputPass value={this.state.userPassword} change={this.setPassword}
+          check={this.checkPassword} success={this.state.success} />
           <input className="submit" type="submit" value="Login" />
           <p className="text">
             <span>Forgot your password?</span>
