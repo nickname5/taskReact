@@ -1,4 +1,4 @@
-body {
+* {
   font-family: "HelveticaNeueCyr";
 }
 
@@ -21,7 +21,7 @@ body {
   padding-left: 75px;
   font-size: 18px;
   color: rgb(102, 102, 102);
-  font-weight: normal;
+  font-weight: 300;
   margin-bottom: 34px;
 }
 
@@ -44,6 +44,7 @@ body {
   letter-spacing: -0.14px;
   color: rgb(102, 102, 102);
   padding-left: 41px;
+  font-weight: 300;
 }
 
 input::placeholder {
@@ -65,7 +66,7 @@ input::placeholder {
 
 .submit {
   font-size: 18px;
-  font-weight: normal;
+  font-weight: 300;
   letter-spacing: -0.18px;
   height: 40px;
   width: 92px;
@@ -82,9 +83,10 @@ input::placeholder {
   font-size: 12px;
   letter-spacing: -0.12px;
   color: rgb(102, 102, 102);
-  height: 20px;
+  /* height: 20px; */
   margin: 0 0 0 72.5px;
-  padding-top: 6px;
+  padding-top: 10px;
+  font-weight: 300;
 }
 
 .link {

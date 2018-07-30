@@ -39,7 +39,7 @@ class App extends Component {
 
   checkLogin(login) {
     const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-    if (reg.test(this.state.userLogin) == false) {
+    if (reg.test(this.state.userLogin) === false) {
       this.setState({eMailError: true});
       this.setState({success: false});
     } else {
